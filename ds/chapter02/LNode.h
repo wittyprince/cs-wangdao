@@ -160,4 +160,13 @@ bool tailInsert2(LinkedList &L) {
     return true;
 }
 
+void printLinkedList(LinkedList L) {
+    LNode *p = L->next;
+    while (p != NULL) {
+        printf("%3d", p->data);
+        p = p->next;
+    }
+    printf("\n");
+}
+
 #endif //CS_WANGDAO_LNODE_H
