@@ -136,6 +136,7 @@ bool tailInsert(LinkedList &L, ElementType e) {
     }
     LNode *q = (LNode *) malloc(sizeof(LNode));
     q->data = e;
+    q->next = NULL;
     p->next = q;
     return true;
 }
