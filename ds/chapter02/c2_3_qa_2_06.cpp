@@ -45,12 +45,37 @@ void splitLinkedList(LinkedList L, LinkedList &A, LinkedList &B) {
 
 }
 
+void splitLinkedList2(LinkedList L, LinkedList &A, LinkedList &B) {
+    LNode *p = L->next;
+    LNode *ar = A, *pNext, *qNext;
+    while (p != NULL) {
+        pNext = p->next; // 用于接收p的后继节点, 防止断链
+
+        // 尾插法 处理A
+        p->next = NULL;
+        ar->next = p;
+        ar = p;
+
+        p = pNext; // 这里处理B
+        if (p != NULL) {
+            // 头插法 处理 B
+            qNext = p->next; // 用于接收q的后继节点, 防止断链
+            p->next = B->next;
+            B->next = p;
+
+            p = qNext;
+        }
+
+    }
+
+}
+
 
 int main() {
 
     LinkedList L;
     initLinkedList2(L);
-    for (int i = 0; i < 20; i++) {
+    for (int i = 0; i < 10; i++) {
         if (i % 2 == 0) {
             tailInsert(L, 20 + i);
         } else {
@@ -65,7 +90,7 @@ int main() {
     LinkedList B;
     initLinkedList2(B);
 
-    splitLinkedList(L, A, B);
+    splitLinkedList2(L, A, B);
     printLinkedList(A);
     printLinkedList(B);
 
