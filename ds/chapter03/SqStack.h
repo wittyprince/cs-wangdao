@@ -18,11 +18,11 @@ void initSqStack(SqStack &S) {
     S.top = -1;
 }
 
-bool stackEmpty(SqStack S) {
+bool sqStackEmpty(SqStack S) {
     return S.top == -1;
 }
 
-bool push(SqStack &S, ElementType e) {
+bool pushIntoSqStack(SqStack &S, ElementType e) {
     // 判断栈满
     // 注意top是从-1开始的
     if (S.top + 1 == StackMaxSize) {
@@ -33,7 +33,7 @@ bool push(SqStack &S, ElementType e) {
     return true;
 }
 
-bool pop(SqStack &S, ElementType &e) {
+bool popFromSqStack(SqStack &S, ElementType &e) {
     // 判断栈空
     if (S.top == -1) {
         return false;
@@ -43,7 +43,7 @@ bool pop(SqStack &S, ElementType &e) {
     return true;
 }
 
-bool getTop(SqStack S, ElementType &e) {
+bool getTopFromSqStack(SqStack S, ElementType &e) {
     // 判断栈空
     if (S.top == -1) {
         return false;
