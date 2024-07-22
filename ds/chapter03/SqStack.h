@@ -18,7 +18,7 @@ void initSqStack(SqStack &S) {
     S.top = -1;
 }
 
-bool sqStackEmpty(SqStack S) {
+bool isSqStackEmpty(SqStack S) {
     return S.top == -1;
 }
 
