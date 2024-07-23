@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// 线性表-顺序表
+// 线性结构-线性表-顺序表-静态分配
 #define MaxSize 10
 
 typedef int ElementType;
@@ -23,6 +23,7 @@ void initSqList(SqList &L) {
     L.length = 0; // 初始长度为0
 }
 
+// 在第pos个位置上插入元素e
 bool insertIntoSqList(SqList &L, int position, ElementType e) {
     // 判断position的合法性 position >= 1 and position <= length + 1
     if (position < 1 || position > L.length + 1) {
@@ -60,6 +61,7 @@ bool deleteFromSqList(SqList &L, int pos, ElementType &e) {
     return true;
 }
 
+// 查找第一个元素值等于e的元素，并返回其位序
 int locateElementFromSqList(SqList L, ElementType e) {
     for (int i = 0; i < L.length; ++i) {
         if (L.data[i] == e) {
