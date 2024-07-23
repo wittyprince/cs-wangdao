@@ -24,10 +24,14 @@ void initSqQueue(SqQueue &Q) {
 // 2. 增加一个size字段, 来表示数据成员个数。插入成功时size加1, 删除成功时, size减1.
 // 3. 增加一个tag字段, 表示是插入操作还是删除操作。tag = 1表示插入操作, tag = 0 表示删除操作。
 bool isSqQueueEmpty(SqQueue Q) {
+    // 这里使用 Q.front == Q.rear, 而不是 Q.front % MaxSize == Q.rear % MaxSize;
+    // 是应为 在enSqQueue()方法 和 deSqQueue()方法中对 Q.rear 和 Q.front 做了处理
     return Q.front == Q.rear;
 }
 
 bool isSqQueueFull(SqQueue Q) {
+    // 这里使用的是 Q.front, 而不是 Q.front % QueueMaxSize, 是因为 在入队enSqQueue() 方法时对Q.front做了处理
+    // 即 Q.rear = (Q.rear + 1) % QueueMaxSize; 已经做了处理
     return (Q.rear + 1) % QueueMaxSize == Q.front;
 }
 
