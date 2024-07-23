@@ -2,20 +2,24 @@
 // Created by 51676 on 2024/7/15.
 //
 
-#ifndef CS_WANGDAO_LNODE_H
-#define CS_WANGDAO_LNODE_H
+#ifndef CS_WANGDAO_LINKEDLIST_H
+#define CS_WANGDAO_LINKEDLIST_H
 
 #include <stdlib.h>
+#include <stdio.h>
 
 typedef int ElementType;
 
+// 单链表的数据结构-节点
 typedef struct lnode {
     ElementType data;
     struct lnode *next;
 } LNode;
 
+// 把(LNode *)重命名为 LinkedList
 typedef LNode *LinkedList;
 
+// 初始化-带头结点的单链表
 bool initLinkedList(LNode *&L) {
     L = (LNode *) malloc(sizeof(LNode));
     L->next = NULL;
@@ -28,6 +32,22 @@ bool initLinkedList2(LinkedList &L) {
     L->next = NULL;
     L->data = 0;
     return true;
+}
+
+// 初始化-不带头结点的单链表
+bool initLinkedListWithoutHead(LinkedList &L) {
+    L = NULL;
+    return true;
+}
+
+// 是否为空-带头结点
+bool isLinkedListEmpty(LinkedList L) {
+    return L->next == NULL;
+}
+
+// 是否为空-不带头结点
+bool isLinkedListEmptyWithoutHead(LinkedList L) {
+    return L == NULL;
 }
 
 int lengthOfLinkedList(LinkedList L) {
@@ -58,17 +78,19 @@ LNode *locateElement(LinkedList L, ElementType e) {
     return p;
 }
 
+// 按位序插入-带头结点
+// 在第pos个位置上插入元素e
 bool insertIntoLinkedList(LinkedList &L, int pos, ElementType e) {
     if (pos < 1) { // 位置pos从1开始
         return false;
     }
-    int i = 0;
     LNode *p = L; // 游标
+    int i = 0; // 当前游标p指向的是第几个结点
     while (p != NULL && i < pos -1) { // 经过遍历 i < pos -1 得到的p为要插入位置的前一个节点
         p = p->next;
         i++;
     }
-    // 如果p为NULL, 那么表名要插入位置的前一个节点为NULL, 要插入位置为无效位置
+    // 如果p为NULL, 那么表明要插入位置的前一个节点为NULL, 要插入位置为无效位置
     if (p == NULL) {
         return false;
     }
@@ -78,6 +100,46 @@ bool insertIntoLinkedList(LinkedList &L, int pos, ElementType e) {
 
     q->next = p->next;
     p->next = q;
+    return true;
+}
+
+// 按位序插入-不带头结点
+bool insertIntoLinkedListWithoutHead(LinkedList &L, int pos, ElementType e) {
+    if (pos < 1) { // 位置pos从1开始
+        return false;
+    }
+    LNode *tmp = (LNode *) malloc(sizeof(LNode));
+    tmp->data = e;
+    tmp->next = NULL;
+
+    // 如果要插入的位置为1, 那么需要改变L的指向
+    // 否则, L的指向不会发生改变(指向第一个节点)
+    // 所以这里需要根据pos是否为1来进行处理
+    if (pos == 1) { // 其实这里包含了L为空的情形
+        tmp->next = L;
+        L = tmp;
+        return true;
+    }
+
+    // 如果当前链表为NULL, 那么直接作为第一个结点插入
+//    if (L == NULL) {
+//        L = tmp;
+//        return true;
+//    }
+
+    // 处理完是否为第一个节点的特殊情况后, 后续节点处理方式与带头结点的类似
+    int j = 1; // 变量
+    LNode *cursor = L; // 游标
+    while (cursor != NULL && j < pos -1) { // 找到pos位置前一个元素
+        cursor = cursor->next;
+        j++;
+    }
+    // 如果p为NULL, 那么表明要插入位置的前一个节点为NULL, 要插入位置为无效位置
+    if (cursor == NULL) {
+        return false;
+    }
+    tmp->next = cursor->next;
+    cursor->next = tmp;
     return true;
 }
 
@@ -170,4 +232,13 @@ void printLinkedList(LinkedList L) {
     printf("\n");
 }
 
-#endif //CS_WANGDAO_LNODE_H
+void printLinkedListWithoutHead(LinkedList L) {
+    LNode *p = L;
+    while (p != NULL) {
+        printf("%3d", p->data);
+        p = p->next;
+    }
+    printf("\n");
+}
+
+#endif //CS_WANGDAO_LINKEDLIST_H

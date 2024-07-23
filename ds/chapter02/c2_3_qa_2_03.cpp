@@ -3,7 +3,7 @@
 //
 
 #include <stdio.h>
-#include "LNode.h"
+#include "LinkedList.h"
 
 // 头插法 reverse
 bool reverseLinkedList(LinkedList &L) {

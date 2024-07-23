@@ -3,7 +3,7 @@
 //
 
 #include <stdio.h>
-#include "LNode.h"
+#include "LinkedList.h"
 
 void splitLinkedList(LinkedList L, LinkedList &A, LinkedList &B) {
     // 判断L->next 是否为空

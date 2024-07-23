@@ -3,7 +3,7 @@
 //
 
 #include <stdio.h>
-#include "LNode.h"
+#include "LinkedList.h"
 
 void extractSameElement(LinkedList L1, LinkedList L2, LinkedList &L3) {
     LNode *p = L1->next;

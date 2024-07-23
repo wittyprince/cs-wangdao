@@ -3,7 +3,7 @@
 //
 
 #include <stdio.h>
-#include "LNode.h"
+#include "LinkedList.h"
 
 LNode * getMin(LinkedList &L) {
     LNode *p = L->next;

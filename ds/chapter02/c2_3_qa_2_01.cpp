@@ -3,7 +3,7 @@
 //
 #include <stdio.h>
 
-#include "LNode.h"
+#include "LinkedList.h"
 
 // 删除链表中所有值为e的节点
 bool deleteTheElement(LinkedList &L, ElementType e) {

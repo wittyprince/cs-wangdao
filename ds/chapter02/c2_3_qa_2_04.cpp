@@ -3,7 +3,7 @@
 //
 
 #include <stdio.h>
-#include "LNode.h"
+#include "LinkedList.h"
 
 bool deleteBetween(LinkedList &L, ElementType a, ElementType b) {
 

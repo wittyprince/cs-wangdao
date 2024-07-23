@@ -3,7 +3,7 @@
 //
 
 #include <stdio.h>
-#include "LNode.h"
+#include "LinkedList.h"
 
 void deleteDuplicate(LinkedList &L) {
     LNode *prior = L;
