@@ -57,6 +57,17 @@ int strCompare(SString S, SString T) {
     return S.length - T.length;
 }
 
+// 串联接
+bool strConcat(SString &T, SString S1, SString S2) {
+    int i = 1, j = 1;
+    for (; i <= S1.length; i++)
+        T.ch[i] = S1.ch[i];
+    for (; j <= S2.length; j++)
+        T.ch[S1.length + j] = S2.ch[j];
+    T.length = S1.length + S2.length;
+    return true;
+}
+
 void printSString(SString S) {
     for (int i = 1; i <= S.length; ++i) {
         printf("%c", S.ch[i]);
