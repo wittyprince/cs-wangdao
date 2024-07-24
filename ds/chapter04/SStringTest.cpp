@@ -50,6 +50,23 @@ int index_KMP(SString S, SString T, int next[]) {
     return 0;
 }
 
+/**
+ * 计算nextval[]数组
+ * @param T 模式串
+ * @param next[] next[]数组
+ * @param nextval[] nextval[]数组
+ */
+void getNextvalArray(SString T, int next[], int nextval[]) {
+    nextval[1] = 0;
+    for (int j = 2; j <= T.length; ++j) {
+        if (T.ch[next[j]] == T.ch[j]) {
+            nextval[j] = nextval[next[j]];
+        } else {
+            nextval[j] = next[j];
+        }
+    }
+}
+
 
 int main() {
 
@@ -75,10 +92,26 @@ int main() {
     strConcat(S0, S, T);
     printSString(S0);
 
-    int next[] = {0, 1, 1};
+    // 注意next[]数组的第1个位置(即索引为0)不参与KMP计算
+    int next[] = {0, 0, 1, 1};
     pos = index_KMP(S, T, next);
     printf("%d\n", pos);
 
+
+
+    char ch6[] = "aaaab";
+    SString  T6;
+    strAssign(T6, ch6);
+    printSString(T6);
+
+    int next6[] = {0, 0, 1, 2, 3, 4};
+    int nextval6[6];
+    getNextvalArray(T6, next6, nextval6);
+
+    for (int k = 1; k < 6; ++k) {
+        printf("%3d", nextval6[k]);
+    }
+    printf("\n");
 
     return 0;
 }
