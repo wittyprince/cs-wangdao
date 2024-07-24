@@ -50,6 +50,21 @@ int index_KMP(SString S, SString T, int next[]) {
     return 0;
 }
 
+void getNext(SString T, int next[]) {
+    int i = 1; // next[]数组的下标, 从1开始
+    int j = 0; //
+    next[1] = 0; //
+    while (i < T.length) {
+        if (j == 0 || T.ch[i] == T.ch[j]) {
+            ++i;
+            ++j;
+            next[i] = j; // 若pi = pj, 则 next[j + 1] = next[j] + 1;
+        } else {
+            j = next[j]; // 否则, 令 j = next[j], 继续循环
+        }
+    }
+}
+
 /**
  * 计算nextval[]数组
  * @param T 模式串
