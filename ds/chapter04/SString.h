@@ -5,6 +5,8 @@
 #ifndef CS_WANGDAO_SSTRING_H
 #define CS_WANGDAO_SSTRING_H
 
+#include <stdio.h>
+
 // 串-定长顺序存储表示-静态分配内存空间
 #define MaxLength 255
 
@@ -14,6 +16,16 @@ typedef struct sString {
     char ch[MaxLength]; // 每个分量存储一个字符
     int length; // 串的实际长度
 } SString;
+
+// 赋值操作
+bool strAssign(SString &S, char chars[]) {
+    int i = 0;
+    for (; chars[i] != '\0'; i++) {
+        S.ch[i + 1] = chars[i];
+    }
+    S.length = i;
+    return true;
+}
 
 // 求子串
 bool subString(SString &sub, SString S, int pos, int length) {
@@ -45,5 +57,11 @@ int strCompare(SString S, SString T) {
     return S.length - T.length;
 }
 
+void printSString(SString S) {
+    for (int i = 1; i <= S.length; ++i) {
+        printf("%c", S.ch[i]);
+    }
+    printf("\n");
+}
 
 #endif //CS_WANGDAO_SSTRING_H
