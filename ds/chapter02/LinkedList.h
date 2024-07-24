@@ -50,28 +50,31 @@ bool isLinkedListEmptyWithoutHead(LinkedList L) {
     return L == NULL;
 }
 
+// 求表长
 int lengthOfLinkedList(LinkedList L) {
     int length = 0;
     LNode *p = L; // 游标指针p
-    while (p->next != NULL) {
+    while (p->next != NULL) { // 这里从p->next开始, 是因为L是带头结点的单链表
         p = p->next;
         length++;
     }
     return length;
 }
 
+// 按序号查找结点
 LNode *getElement(LinkedList L, int pos) {
-    LNode *p = L;
-    int i = 0;
+    LNode *p = L; // 游标指针p指向当前扫描到的结点
+    int i = 0; // 记录当前节点的位序, 头结点是第0个结点
     while (p != NULL && i < pos) {
-        p = p->next;
+        p = p->next;     // 最后一次遍历时, 这里p会等于p->next
         i++;
     }
     return p;
 }
 
+// 按值查找结点
 LNode *locateElement(LinkedList L, ElementType e) {
-    LNode *p = L->next;
+    LNode *p = L->next; // 跳过头结点, 从第一个节点开始查找
     while (p != NULL && p->data != e) {
         p = p->next;
     }
@@ -80,13 +83,24 @@ LNode *locateElement(LinkedList L, ElementType e) {
 
 // 按位序插入-带头结点
 // 在第pos个位置上插入元素e
+// 方法一: 后插操作, 在某结点 后面 插入一个新结点。
+//      本示例使用的是后插操作。
+//      只不过把pos-1位置上的结点当做"某节点", 即 找到第 pos -1 个结点, 然后在其后插入新结点(包含元素e的)
+// 方法二: 前插操作, 在某节点 前面 插入一个新节点。
+//      如果把pos位置上的结点当做"某结点", 在其前面进行插入新结点操作, 此时即为前插操作。
+//      但是前插操作也可以转换为后插操作, 即通过遍历找到pos位置的前一个节点pos-1, 然后对其进行后插操作即可。
+// 方法三: 交换值域的方式
+//      在pos位置上插入一个新结点, 本意是在pos前面插入新结点,
+//      那么我们可以转换为在pos位置后面插入新结点, 然后把pos位置上的值域与新结点的值域进行互换, 可以达到目的。
+//      此方法的好处是时间复杂度为O(1)
 bool insertIntoLinkedList(LinkedList &L, int pos, ElementType e) {
     if (pos < 1) { // 位置pos从1开始
         return false;
     }
-    LNode *p = L; // 游标
-    int i = 0; // 当前游标p指向的是第几个结点
-    while (p != NULL && i < pos -1) { // 经过遍历 i < pos -1 得到的p为要插入位置的前一个节点
+    LNode *p = L; // 游标, 指向当前扫描到的节点
+    int i = 0; // 当前游标p指向的是第几个结点, 头结点是第0个结点
+    // 经过遍历 i < pos -1 得到的p为要插入位置的前一个节点, 即第pos-1个结点
+    while (p != NULL && i < pos -1) {
         p = p->next;
         i++;
     }
@@ -143,13 +157,22 @@ bool insertIntoLinkedListWithoutHead(LinkedList &L, int pos, ElementType e) {
     return true;
 }
 
+// 删除第pos个位置上的结点, 并用e返回被删除节点的值
+// 方法一: 找前驱结点, 然后删除该前驱结点的后继结点(即pos位置上的结点)
+//      找到pos的前一个结点pos-1, 然后在对pos位置上的结点进行删除操作
+// 方法二: 交换值域方式
+//      找到pos的后继结点, 把pos位置上结点的值与其后继结点的值进行互换,
+//      然后删除其后继几点即可。
+//      此方法的好处是时间复杂度为O(1)
 bool deleteFromLinkedList(LinkedList &L, int pos, ElementType &e) {
     if (pos < 1) { // 位置pos从1开始
         return false;
     }
-    int i = 0;
-    LNode *p = L; // 游标
-    while (p != NULL && i < pos -1) { // 经过遍历 i < pos -1 得到的p为要删除位置的前一个节点
+    LNode *p = L; // 游标, 指向当前扫描到的节点
+    int i = 0; // 记录当前游标p的位序, 头结点是第0个结点
+    // 经过遍历 i < pos -1 得到的p为要删除位置的前一个节点
+    // 即第pos-1个结点, 即此时p为第pos-1个结点, i = pos -1;
+    while (p != NULL && i < pos -1) {
         p = p->next;
         i++;
     }
@@ -165,6 +188,8 @@ bool deleteFromLinkedList(LinkedList &L, int pos, ElementType &e) {
     return true;
 }
 
+// 头插法-带头结点
+//      逆向建立单链表
 bool headInsert(LinkedList &L, ElementType e) {
     LNode *q = (LNode *) malloc(sizeof(LNode));
     q->data = e;
@@ -173,6 +198,8 @@ bool headInsert(LinkedList &L, ElementType e) {
     return true;
 }
 
+// 头插法-带头结点
+//      逆向建立单链表
 bool insertHead2(LinkedList &L) {
     // 如果L是初始化过的带头结点的链表, 下面两句给L赋值头结点的操作可以省略.
 //    L = (LNode *) malloc(sizeof(LNode));
