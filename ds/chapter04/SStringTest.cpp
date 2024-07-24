@@ -52,7 +52,7 @@ int index_KMP(SString S, SString T, int next[]) {
 
 void getNext(SString T, int next[]) {
     int i = 1; // next[]数组的下标, 从1开始
-    int j = 0; //
+    int j = 0; // 与主串对齐的位置
     next[1] = 0; //
     while (i < T.length) {
         if (j == 0 || T.ch[i] == T.ch[j]) {
