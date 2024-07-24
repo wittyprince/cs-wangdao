@@ -28,8 +28,25 @@ int index(SString S, SString T) {
     return 0;
 }
 
+// 模式匹配-KMP
 int index_KMP(SString S, SString T, int next[]) {
-
+    int i = 1, j = 1;
+    // 循环结束的条件有两个：
+    // 1. 匹配成功：
+    //      j = T.length + 1;
+    // 2. 匹配不成功
+    //      j = next[j], next[j]的取值范围是1~T.length-1
+    while (i <= S.length && j <= T.length) {
+        if (j == 0 || S.ch[i] == T.ch[j]) {
+            i++;
+            j++;
+        } else {
+            j = next[j];
+        }
+    }
+    if (j > T.length) {
+        return i - T.length;
+    }
     return 0;
 }
 
@@ -57,6 +74,10 @@ int main() {
     SString S0;
     strConcat(S0, S, T);
     printSString(S0);
+
+    int next[] = {0, 1, 1};
+    pos = index_KMP(S, T, next);
+    printf("%d\n", pos);
 
 
     return 0;
