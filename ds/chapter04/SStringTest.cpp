@@ -52,13 +52,19 @@ int index_KMP(SString S, SString T, int next[]) {
 
 void getNext(SString T, int next[]) {
     int i = 1; // next[]数组的下标, 从1开始
-    int j = 0; // 与主串对齐的位置
+    int j = 0; // next[]数组中与主串对齐的位置
     next[1] = 0; //
     while (i < T.length) {
         if (j == 0 || T.ch[i] == T.ch[j]) {
-            ++i;
-            ++j;
-            next[i] = j; // 若pi = pj, 则 next[j + 1] = next[j] + 1;
+//            ++i;
+//            ++j;
+//            next[i] = j; // 若pi = pj, 则 next[j + 1] = next[j] + 1;
+            // 下面的方式更直观些, 没有做简化处理
+            // 若pi = pj, 则 next[j + 1] = next[j] + 1;
+            // 注意, 这里的j在else中赋值了, 即为next[j];
+            next[i + 1] = j + 1;
+            i++;
+            j++;
         } else {
             j = next[j]; // 否则, 令 j = next[j], 继续循环
         }
