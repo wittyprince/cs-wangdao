@@ -26,7 +26,7 @@ typedef struct binaryTreeNode {
 //    struct binaryTreeNode *parent; // 父节点指针, 根据情况可以有
 } BinaryTreeNode, *BinaryTree;
 
-// 用于构造数的辅助队列
+// 用于构造数(层序构造树)的辅助队列
 // 辅助队列-链式队列的结点
 typedef struct binaryTreeLinkedNode {
     BinaryTreeNode *treeData;                // 数据域, 树的某一个节点的地址

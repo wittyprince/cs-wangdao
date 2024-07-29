@@ -104,7 +104,12 @@ int main() {
 
 
 
+    printf("\n=====preOrder=====\n");
+    preOrder(root);
+    printf("\n=====inOrder=====\n");
     inOrder(root);
+    printf("\n=====postOrder=====\n");
+    postOrder(root);
 
 
     return 0;
