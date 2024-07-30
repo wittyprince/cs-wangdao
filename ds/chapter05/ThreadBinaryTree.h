@@ -42,6 +42,9 @@ bool isQueueEmpty(ThreadBinaryTreeQueue Q) {
 }
 
 void enQueue(ThreadBinaryTreeQueue &Q, ThreadBinaryTreeNode *treeNode) {
+    if (treeNode == NULL) {
+        return;
+    }
     ThreadBinaryTreeLinkedNode *linkedNode = (ThreadBinaryTreeLinkedNode *) malloc(sizeof(ThreadBinaryTreeLinkedNode));
     linkedNode->treeData = treeNode;
     linkedNode->treeNext = NULL;
@@ -71,12 +74,15 @@ bool deQueue(ThreadBinaryTreeQueue &Q, ThreadBinaryTreeNode *&treeNode) {
 // ==========Tree method start==========
 // 中序线索化
 void visit(ThreadBinaryTreeNode *&current, ThreadBinaryTreeNode *&pre) {
+    // 处理左子树, 如果左子树为空, 对左子树进行线索化
+    // 这里没有对current进行右子树判断及处理,
+    // 这是因为将current.leftChild的处理放在了后续pre.rightChild中进行了处理
     if (current->leftChild == NULL) {
         current->leftChild = pre;
         current->leftThread = 1;
     }
     if (pre != NULL && pre->rightChild == NULL) {
-        pre->rightChild = current;
+        pre->rightChild = current; // 建立前驱结点的后继
         pre->rightThread = 1;
     }
     pre = current;
@@ -94,7 +100,10 @@ void inThreadCreateTree(ThreadBinaryTree root) {
     ThreadBinaryTreeNode *pre = NULL;
     if (root != NULL) {
         inThread(root, pre);
-
+        //pre.rightChild
+        if (pre->rightChild == NULL) {
+            pre->rightThread = 1; // 处理遍历的最后一个节点, 线索化
+        }
     }
 }
 
@@ -155,6 +164,46 @@ void levelOrder(ThreadBinaryTree root) {
         }
         if (treeNode->rightChild != NULL && treeNode->rightThread == 0) {
             enQueue(Q, treeNode->rightChild);
+        }
+    }
+}
+
+// 找到以当前节点currentNode为根的子树中的, 第一个被中序遍历的节点
+ThreadBinaryTreeNode *getFirstNode(ThreadBinaryTreeNode *currentNode) {
+    while (currentNode != NULL && currentNode->leftThread == 0) {
+        currentNode = currentNode->leftChild;
+    }
+    return currentNode;
+}
+
+// 在中序线索二叉树中找到当前节点currentNode的后继节点
+ThreadBinaryTreeNode *getNextNode(ThreadBinaryTreeNode *currentNode) {
+    if (currentNode->rightThread == 1) {
+        return currentNode->rightChild;
+    }
+    return getFirstNode(currentNode->rightChild);
+}
+
+// 线索二叉树-中序遍历-非递归
+void inOrderNonRecursive(ThreadBinaryTree root) {
+    // 1. 找到根节点root的第一个要被遍历的节点
+    ThreadBinaryTreeNode *firstNode = getFirstNode(root);
+    ThreadBinaryTreeNode *nextNode = getNextNode(firstNode);
+    // 2. 循环遍历firstNode的后继节点, 即可
+    for (ThreadBinaryTreeNode* i = firstNode; i != NULL; i = getNextNode(i)) {
+        visitTreeNode(i);
+    }
+}
+
+// 线索二叉树-中序遍历-递归
+void inOrder(ThreadBinaryTree root) {
+    if (root != NULL) {
+        if (root->leftThread == 0) {
+            inOrder(root->leftChild);
+        }
+        visitTreeNode(root);
+        if (root->rightThread == 0) {
+            inOrder(root->rightChild);
         }
     }
 }
