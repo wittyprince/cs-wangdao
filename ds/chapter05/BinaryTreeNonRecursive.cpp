@@ -20,6 +20,11 @@ typedef struct binaryTreeLinkedNode {
     struct binaryTreeLinkedNode *treeNext;
 } BinaryTreeLinkedNode, *BinaryTreeLinkedList;
 
+typedef struct binaryTreeQueue {
+    BinaryTreeLinkedNode *front; // 队头指针, 指向队头元素
+    BinaryTreeLinkedNode *rear; // 队尾指针, 指向队尾元素
+} BinaryTreeQueue;
+
 // ==========Tree struct end==========
 
 // ==========Stack struct start==========
@@ -67,6 +72,45 @@ bool peek(Stack &S, BinaryTreeNode *&treeNode) {
     return true;
 }
 // ==========Stack method end==========
+
+// ==========Queue method start==========
+void initQueue(BinaryTreeQueue &Q) {// 带头结点
+    BinaryTreeLinkedNode *head = (BinaryTreeLinkedNode *) malloc(sizeof(BinaryTreeLinkedNode));
+    head->treeData = NULL;
+    head->treeNext = NULL;
+    Q.front = Q.rear = head;
+}
+
+bool isQueueEmpty(BinaryTreeQueue &Q) {
+    return Q.front == Q.rear || Q.front->treeNext == NULL/* || Q.rear->treeNext == NULL*/;
+}
+
+void enQueue(BinaryTreeQueue &Q, BinaryTreeNode *treeNode) {
+    // 构造队列节点
+    BinaryTreeLinkedNode *linkedNode = (BinaryTreeLinkedNode *) malloc(sizeof(BinaryTreeLinkedNode));
+    linkedNode->treeData = treeNode;
+    linkedNode->treeNext = NULL;
+    // 入队
+    Q.rear->treeNext = linkedNode;
+    Q.rear = linkedNode;
+}
+
+bool deQueue(BinaryTreeQueue &Q, BinaryTreeNode *&treeNode) {
+    // 判断队列是否为空
+    if (Q.front == NULL || Q.rear == NULL) {
+        return false;
+    }
+    // 判断队列是否只剩最后一个元素
+    BinaryTreeLinkedNode *tmp = Q.front->treeNext;
+    treeNode = tmp->treeData;
+    Q.front->treeNext = tmp->treeNext;
+    if (tmp->treeNext == NULL) {
+        Q.rear = Q.front;
+    }
+    free(tmp);
+    return true;
+}
+// ==========Queue method end==========
 
 // ==========Tree method start==========
 // 层序建树
@@ -229,9 +273,25 @@ void postOrderNonRecursive(BinaryTree root) {
 }
 
 void levelOrder(BinaryTree root) {
-    
-
+    // 初始化队列
+    BinaryTreeQueue Q;
+    initQueue(Q);
+    // 入队
+    enQueue(Q, root);
+    BinaryTreeNode *tmpTreeNode = NULL;
+    while (!isQueueEmpty(Q)) {
+        // 出队并访问
+        deQueue(Q, tmpTreeNode);
+        visit(tmpTreeNode);
+        if (tmpTreeNode->left != NULL) {
+            enQueue(Q, tmpTreeNode->left);
+        }
+        if (tmpTreeNode->right != NULL) {
+            enQueue(Q, tmpTreeNode->right);
+        }
+    }
 }
+// ==========Tree method end==========
 
 int main() {
 
@@ -251,11 +311,13 @@ int main() {
 //    printf("\n=========preOrderNonRecursive==========\n");
 //    preOrderNonRecursive(root);
 
-    printf("\n=========postOrder==========\n");
-    postOrder(root);
-    printf("\n=========postOrderNonRecursive==========\n");
-    postOrderNonRecursive(root);
+//    printf("\n=========postOrder==========\n");
+//    postOrder(root);
+//    printf("\n=========postOrderNonRecursive==========\n");
+//    postOrderNonRecursive(root);
 
+    printf("\n=========levelOrder==========\n");
+    levelOrder(root);
 
 
 
