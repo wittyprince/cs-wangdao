@@ -225,6 +225,7 @@ void preThread(ThreadBinaryTree root, ThreadBinaryTreeNode *&pre) {
 void preThreadCreateTree(ThreadBinaryTree root) {
     ThreadBinaryTreeNode *pre = NULL;
     if (root != NULL) {
+        //TODO The address of the local variable 'pre' may escape the function
         preThread(root, pre);
         if (pre->rightChild == NULL) {
             pre->rightThread = 1;
