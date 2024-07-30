@@ -39,4 +39,51 @@ typedef struct binaryTreeLinkedNode {
 //    BinaryTreeLinkedNode *rear;  // 尾指针
 //} BinaryTreeLinkedQueue;
 
+//================================================================================
+// 层序构建一个树
+void levelCreateTree(BinaryTree &tree) {
+    // 构造根节点
+    BinaryTreeNode *root = (BinaryTreeNode *) malloc(sizeof(BinaryTreeNode));
+    tree = root;
+    int value;
+    scanf("%d", &value);
+    root->data = {value};
+    root->left = NULL;
+    root->right = NULL;
+    // 构造一个链表用于构建树
+    BinaryTreeLinkedList linkedList = (BinaryTreeLinkedList) malloc(sizeof(BinaryTreeLinkedNode));
+    linkedList->treeData = root;
+    linkedList->treeNext = NULL;
+    // 尾指针, 用于尾插法构造链表
+    BinaryTreeLinkedNode *tail = linkedList;
+    // 当前待处理的链表节点, 用于处理待处理的树节点
+    BinaryTreeLinkedNode *current = linkedList;
+
+    // 构造子树
+    while (scanf("%d", &value) && value != 9999) {
+        // 树节点
+        BinaryTreeNode *tmpTree = (BinaryTreeNode *) malloc(sizeof(BinaryTreeNode));
+        tmpTree->data = {value};
+        tmpTree->left = NULL;
+        tmpTree->right = NULL;
+
+        // 链表节点
+        binaryTreeLinkedNode *tmpLinkedNode = (binaryTreeLinkedNode *) malloc(sizeof(binaryTreeLinkedNode));
+        tmpLinkedNode->treeData = tmpTree;
+        tmpLinkedNode->treeNext = NULL;
+        // 尾插法插入链表
+        tail->treeNext = tmpLinkedNode;
+        tail = tail->treeNext;
+
+        // 处理树节点
+        BinaryTreeNode *currentTreeNode = current->treeData;
+        if (currentTreeNode->left == NULL) {
+            currentTreeNode->left = tmpTree;
+        } else if (currentTreeNode->right == NULL) {
+            currentTreeNode->right = tmpTree;
+            current = current->treeNext;
+        }
+    }
+}
+
 #endif //CS_WANGDAO_BINARYTREE_H
