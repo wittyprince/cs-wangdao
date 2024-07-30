@@ -26,22 +26,27 @@ int main() {
     right_left->data = 5;
     right->leftChild = right_left;
 
-
-    inThreadCreateTree(root);
     printf("\n===levelOrder===\n");
     levelOrder(root);
-    printf("\n===inOrder===\n");
-    inOrder(root);
-    printf("\n===\n");
+//    inThreadCreateTree(root);
+//    printf("\n===inOrder===\n");
+//    inOrder(root);
+//    printf("\n===\n");
+//
+//    ThreadBinaryTreeNode * firstNode = getFirstNode(left);
+//    printf("firstNode:%3d\n", firstNode->data);
+//
+//    ThreadBinaryTreeNode * nextNode = getNextNode(left);
+//    printf("nextNode:%3d\n", nextNode == NULL ? 0 : nextNode->data);
+//
+//    printf("\n===inOrderNonRecursive===\n");
+//    inOrderNonRecursive(root);
 
-    ThreadBinaryTreeNode * firstNode = getFirstNode(left);
-    printf("firstNode:%3d\n", firstNode->data);
-
-    ThreadBinaryTreeNode * nextNode = getNextNode(left);
-    printf("nextNode:%3d\n", nextNode == NULL ? 0 : nextNode->data);
-
-    printf("\n===inOrderNonRecursive===\n");
-    inOrderNonRecursive(root);
+    preThreadCreateTree(root);
+    printf("\n===preOrder===\n");
+    preOrder(root);
+    printf("\n===preOrderNonRecursive===\n");
+    preOrderNonRecursive(root);
 
     return 0;
 }

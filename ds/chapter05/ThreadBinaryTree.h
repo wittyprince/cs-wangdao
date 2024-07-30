@@ -208,6 +208,66 @@ void inOrder(ThreadBinaryTree root) {
     }
 }
 
+// 先序遍历二叉树-线索化
+void preThread(ThreadBinaryTree root, ThreadBinaryTreeNode *&pre) {
+    if (root != NULL) {
+        visit(root, pre);
+        if (root->leftThread == 0) {
+            preThread(root->leftChild, pre);
+        }
+        if (root->rightThread == 0) {
+            preThread(root->rightChild, pre);
+        }
+    }
+}
+
+// 线索二叉树-先序遍历-创建树
+void preThreadCreateTree(ThreadBinaryTree root) {
+    ThreadBinaryTreeNode *pre = NULL;
+    if (root != NULL) {
+        preThread(root, pre);
+        if (pre->rightChild == NULL) {
+            pre->rightThread = 1;
+        }
+    }
+}
+
+// 线索二叉树-先序遍历-找后继
+ThreadBinaryTreeNode *getNextNode4PreOrder(ThreadBinaryTreeNode *currentNode) {
+    // 如果右节点被线索化
+    if (currentNode->rightThread == 1) {
+        return currentNode->rightChild;
+    }
+    // 没被线索化, 说明一点有右孩子
+    // 1. 如果有做孩子, 那么后继为左孩子
+    //  注意: 这里要加上currentNode->leftThread == 0的判断
+    if (currentNode->leftThread == 0 && currentNode->leftChild != NULL) {
+        return currentNode->leftChild;
+    }
+    // 2. 如果左孩子为空, 那么后继为右孩子
+    return currentNode->rightChild;
+}
+
+// 线索二叉树-先序遍历-非递归
+void preOrderNonRecursive(ThreadBinaryTree root) {
+    ThreadBinaryTreeNode *firstNode = root;
+    for (ThreadBinaryTreeNode *i = firstNode; i != NULL; i = getNextNode4PreOrder(i)) {
+        visitTreeNode(i);
+    }
+}
+
+void preOrder(ThreadBinaryTree root) {
+    if (root != NULL) {
+        visitTreeNode(root);
+        if (root->leftThread == 0) {
+            preOrder(root->leftChild);
+        }
+        if (root->rightThread == 0) {
+            preOrder(root->rightChild);
+        }
+    }
+}
+
 // ==========Tree method end==========
 
 #endif //CS_WANGDAO_THREADBINARYTREE_H
