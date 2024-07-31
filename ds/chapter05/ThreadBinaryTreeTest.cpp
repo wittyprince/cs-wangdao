@@ -28,32 +28,33 @@ int main() {
 
     printf("\n===levelOrder===\n");
     levelOrder(root);
-    inThreadCreateTree(root);
-    printf("\n===inOrder===\n");
-    inOrder(root);
-    printf("\n===\n");
 
-    ThreadBinaryTreeNode * firstNode = getFirstNode(root);
-    printf("firstNode:%3d\n", firstNode->data);
+//    inThreadCreateTree(root);
+//    printf("\n===inOrder===\n");
+//    inOrder(root);
+//    printf("\n===\n");
+//
+//    ThreadBinaryTreeNode * firstNode = getFirstNode(root);
+//    printf("firstNode:%3d\n", firstNode->data);
+//
+//    ThreadBinaryTreeNode * nextNode = getNextNode(root);
+//    printf("nextNode:%3d\n", nextNode == NULL ? 0 : nextNode->data);
+//
+//    printf("\n===inOrderNonRecursive===\n");
+//    inOrderNonRecursive(root);
+//    printf("\n");
+//
+//    ThreadBinaryTreeNode * lastNode = getPreviousNode(right_left);
+//    printf("lastNode:%3d\n", lastNode == NULL ? 0 : lastNode->data);
+//
+//    printf("\n===reverseInOrderNonRecursive===\n");
+//    reverseInOrderNonRecursive(root);
 
-    ThreadBinaryTreeNode * nextNode = getNextNode(root);
-    printf("nextNode:%3d\n", nextNode == NULL ? 0 : nextNode->data);
-
-    printf("\n===inOrderNonRecursive===\n");
-    inOrderNonRecursive(root);
-    printf("\n");
-
-    ThreadBinaryTreeNode * lastNode = getPreviousNode(right_left);
-    printf("lastNode:%3d\n", lastNode == NULL ? 0 : lastNode->data);
-
-    printf("\n===reverseInOrderNonRecursive===\n");
-    reverseInOrderNonRecursive(root);
-
-//    preThreadCreateTree(root);
-//    printf("\n===preOrder===\n");
-//    preOrder(root);
-//    printf("\n===preOrderNonRecursive===\n");
-//    preOrderNonRecursive(root);
+    preThreadCreateTree(root);
+    printf("\n===preOrder===\n");
+    preOrder(root);
+    printf("\n===preOrderNonRecursive===\n");
+    preOrderNonRecursive(root);
 
     return 0;
 }
