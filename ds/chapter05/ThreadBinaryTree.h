@@ -29,7 +29,7 @@ typedef struct threadBinaryTreeQueue {
 } ThreadBinaryTreeQueue;
 // ==========Tree struct end==========
 
-// ==========Queue method end==========
+// ==========Queue method start==========
 void initQueue(ThreadBinaryTreeQueue &Q) {
     ThreadBinaryTreeLinkedNode *head = (ThreadBinaryTreeLinkedNode *) malloc(sizeof(ThreadBinaryTreeLinkedNode));
     head->treeData = NULL;
@@ -69,9 +69,10 @@ bool deQueue(ThreadBinaryTreeQueue &Q, ThreadBinaryTreeNode *&treeNode) {
     return true;
 }
 
-// ==========Queue method start==========
+// ==========Queue method end==========
 
 // ==========Tree method start==========
+// =====================中序线索二叉树 start=====================
 // 中序线索化
 void visit(ThreadBinaryTreeNode *&current, ThreadBinaryTreeNode *&pre) {
     // 处理左子树, 如果左子树为空, 对左子树进行线索化
@@ -249,7 +250,9 @@ void inOrder(ThreadBinaryTree root) {
         }
     }
 }
+// =====================中序线索二叉树 end=====================
 
+// =====================先序线索二叉树 start=====================
 // 先序遍历二叉树-线索化
 void preThread(ThreadBinaryTree root, ThreadBinaryTreeNode *&pre) {
     if (root != NULL) {
@@ -310,6 +313,8 @@ void preOrder(ThreadBinaryTree root) {
         }
     }
 }
+
+// =====================先序线索二叉树 end=====================
 
 // ==========Tree method end==========
 
