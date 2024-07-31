@@ -168,6 +168,7 @@ void levelOrder(ThreadBinaryTree root) {
     }
 }
 
+// 在中序线索二叉树中:
 // 找到以当前节点currentNode为根的子树中的, 第一个被中序遍历的节点
 //      即为从当前节点currentNode开始向左遍历, 直到最左节点,
 //      注意: 最左节点可能是叶子节点, 也可能是非叶子节点
