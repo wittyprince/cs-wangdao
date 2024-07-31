@@ -169,6 +169,8 @@ void levelOrder(ThreadBinaryTree root) {
 }
 
 // 找到以当前节点currentNode为根的子树中的, 第一个被中序遍历的节点
+//      即为从当前节点currentNode开始向左遍历, 直到最左节点,
+//      注意: 最左节点可能是叶子节点, 也可能是非叶子节点
 ThreadBinaryTreeNode *getFirstNode(ThreadBinaryTreeNode *currentNode) {
     while (currentNode != NULL && currentNode->leftThread == 0) {
         currentNode = currentNode->leftChild;
@@ -178,9 +180,13 @@ ThreadBinaryTreeNode *getFirstNode(ThreadBinaryTreeNode *currentNode) {
 
 // 在中序线索二叉树中找到当前节点currentNode的后继节点
 ThreadBinaryTreeNode *getNextNode(ThreadBinaryTreeNode *currentNode) {
+    // 如果当前节点currentNode的右线索标识rightThread为1,
+    //      即已经被线索化, 那么右孩子即为当前节点currentNode的后继节点
     if (currentNode->rightThread == 1) {
         return currentNode->rightChild;
     }
+    // 如果当前节点currentNode的右线索标识rightThread==0,
+    //      即未被线索化, 那么需要找到currentNode的右子树中第一个被访问的节点
     return getFirstNode(currentNode->rightChild);
 }
 
