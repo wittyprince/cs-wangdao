@@ -179,7 +179,7 @@ ThreadBinaryTreeNode *getFirstNode(ThreadBinaryTreeNode *currentNode) {
     return currentNode;
 }
 
-// 在中序线索二叉树中找到当前节点currentNode的后继节点
+// 在中序线索二叉树中找到当前节点currentNode的后继节点 - 中序后继
 ThreadBinaryTreeNode *getNextNode(ThreadBinaryTreeNode *currentNode) {
     // 如果当前节点currentNode的右线索标识rightThread为1,
     //      即已经被线索化, 那么右孩子即为当前节点currentNode的后继节点
@@ -198,6 +198,41 @@ void inOrderNonRecursive(ThreadBinaryTree root) {
     ThreadBinaryTreeNode *nextNode = getNextNode(firstNode);
     // 2. 循环遍历firstNode的后继节点, 即可
     for (ThreadBinaryTreeNode* i = firstNode; i != NULL; i = getNextNode(i)) {
+        visitTreeNode(i);
+    }
+}
+
+// 在中序线索二叉树中:
+// 找到以当前节点currentNode为根的子树中的, 最后一个被中序遍历的节点
+//      即为从当前节点currentNode开始向右遍历, 直到最右节点,
+//      注意: 最右节点可能是叶子节点, 也可能是非叶子节点
+ThreadBinaryTreeNode *getTheLastNode(ThreadBinaryTreeNode *currentNode) {
+    ThreadBinaryTreeNode *tmp = currentNode;
+    while (tmp != NULL && tmp->rightThread == 0) {
+        tmp = currentNode->rightChild;
+    }
+    return tmp;
+}
+
+// 在中序线索二叉树中找到当前节点currentNode的前驱节点 - 中序前驱
+ThreadBinaryTreeNode *getPreviousNode(ThreadBinaryTreeNode *currentNode) {
+    // 如果当前节点currentNode的左线索标识leftThread==1,
+    //      即已经被线索化, 那么左孩子即为当前节点currentNode的前驱节点
+    if (currentNode->leftThread == 1) {
+        return currentNode->leftChild;
+    }
+    // 如果当前节点currentNode的左线索标识leftThread==0,
+    //      即未被线索化, 那么需要找到currentNode的左子树中最后一个被访问的节点
+    return getTheLastNode(currentNode->leftChild);
+}
+
+// 线索二叉树-逆向中序遍历-非递归
+void reverseInOrderNonRecursive(ThreadBinaryTree root) {
+    // 1. 找到根节点root的最后一个要被遍历的节点
+    ThreadBinaryTreeNode *theLastNode = getTheLastNode(root);
+    ThreadBinaryTreeNode *previousNode = getPreviousNode(theLastNode);
+    // 2. 循环遍历firstNode的后继节点, 即可
+    for (ThreadBinaryTreeNode* i = theLastNode; i != NULL; i = getPreviousNode(i)) {
         visitTreeNode(i);
     }
 }
