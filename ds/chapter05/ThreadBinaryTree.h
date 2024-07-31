@@ -77,7 +77,7 @@ bool deQueue(ThreadBinaryTreeQueue &Q, ThreadBinaryTreeNode *&treeNode) {
 void visit(ThreadBinaryTreeNode *&current, ThreadBinaryTreeNode *&pre) {
     // 处理左子树, 如果左子树为空, 对左子树进行线索化
     // 这里没有对current进行右子树判断及处理,
-    // 这是因为将current.leftChild的处理放在了后续pre.rightChild中进行了处理
+    // 这是因为将current.rightChild的处理放在了后续pre.rightChild中进行了处理
     if (current->leftChild == NULL) {
         current->leftChild = pre;
         current->leftThread = 1;
@@ -315,6 +315,86 @@ void preOrder(ThreadBinaryTree root) {
     }
 }
 
+// =====================先序线索二叉树 end=====================
+
+// =====================后序线索二叉树 start=====================
+//  后续线索化
+void postThread(ThreadBinaryTree root, ThreadBinaryTreeNode *&pre) {
+    if (root != NULL) {
+        if (root->leftThread == 0) {
+            postThread(root->leftChild, pre);
+        }
+        if (root->rightThread == 0) {
+            postThread(root->rightChild, pre);
+        }
+        visit(root, pre);
+    }
+}
+
+void postThreadCreateTree(ThreadBinaryTree root) {
+    ThreadBinaryTreeNode *pre = NULL;
+    if (root != NULL) {
+        postThread(root, pre);
+        //处理最后一个节点pre
+        if (pre->rightChild == NULL) {
+            pre->rightThread = 1;
+        }
+    }
+}
+
+// 在后序线索二叉树中:
+// 找到以当前节点currentNode为根的子树中的, 最后一个被后序遍历的节点
+//      即为从当前节点currentNode开始向右遍历, 直到最右节点,
+//      注意: 最右节点可能是叶子节点, 也可能是非叶子节点
+ThreadBinaryTreeNode *getTheLastNode4PostOrder(ThreadBinaryTreeNode *currentNode) {
+//    if (currentNode->rightChild != NULL) {
+//        if (currentNode->rightThread == 0) {
+//            return currentNode->rightChild;
+//        }
+//    }
+    // 未被线索化, 说明currentNode原来的右子树leftChild不为空
+    if (currentNode->rightThread == 0) {
+        return currentNode->rightChild;
+    }
+    // 走到这里说明右子树为空, 被线索化, 线索化标识为1
+//    if (currentNode->rightThread == 1) {
+//        // 被线索化, 说明currentNode原来的rightChild为空
+//    }
+    // 返回左子树, 包括:
+    //      1. 左子树被线索化
+    //      2. 左子树未被线索化
+    return currentNode->leftChild;
+}
+
+// 在后序线索二叉树中找到当前节点currentNode的前驱节点 - 后序前驱
+ThreadBinaryTreeNode *getPreviousNode4PostOrder(ThreadBinaryTreeNode *currentNode) {
+    // 如果左线索为1
+    if (currentNode->leftThread == 1) {
+        return currentNode->leftChild;
+    }
+    // 左线索不为1
+    return getTheLastNode4PostOrder(currentNode);
+}
+
+// 逆序后续遍历
+void reversePostOrderNonRecursive(ThreadBinaryTree root) {
+    ThreadBinaryTreeNode *theLastNode = root;
+    for (ThreadBinaryTreeNode * i = theLastNode; i != NULL ; i = getPreviousNode4PostOrder(i)) {
+        visitTreeNode(i);
+    }
+}
+
+void postOrder(ThreadBinaryTree root) {
+    if (root != NULL) {
+        if (root->leftThread == 0) {
+            postOrder(root->leftChild);
+        }
+        if (root->rightThread == 0) {
+            postOrder(root->rightChild);
+        }
+        visitTreeNode(root);
+    }
+}
 // =====================先序线索二叉树 end=====================
 
 // ==========Tree method end==========

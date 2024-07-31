@@ -11,7 +11,6 @@ int main() {
 //    levelCreateTree(root);
     root = (ThreadBinaryTreeNode *) calloc(1, sizeof(ThreadBinaryTreeNode));
     root->data = 1;
-
     ThreadBinaryTreeNode *left = (ThreadBinaryTreeNode *) calloc(1, sizeof(ThreadBinaryTreeNode));
     left->data = 2;
     ThreadBinaryTreeNode *right = (ThreadBinaryTreeNode *) calloc(1, sizeof(ThreadBinaryTreeNode));
@@ -50,11 +49,21 @@ int main() {
 //    printf("\n===reverseInOrderNonRecursive===\n");
 //    reverseInOrderNonRecursive(root);
 
-    preThreadCreateTree(root);
-    printf("\n===preOrder===\n");
-    preOrder(root);
-    printf("\n===preOrderNonRecursive===\n");
-    preOrderNonRecursive(root);
+//    preThreadCreateTree(root);
+//    printf("\n===preOrder===\n");
+//    preOrder(root);
+//    printf("\n===preOrderNonRecursive===\n");
+//    preOrderNonRecursive(root);
+
+    postThreadCreateTree(root);
+    printf("\n===postOrder===\n");
+    postOrder(root);
+    printf("\n");
+    ThreadBinaryTreeNode *previousNode4PostOrder = getPreviousNode4PostOrder(right_left);
+    printf("previousNode4PostOrder:%3d\n", previousNode4PostOrder == NULL ? 0 : previousNode4PostOrder->data);
+
+    printf("\n===reversePostOrderNonRecursive===\n");
+    reversePostOrderNonRecursive(root);
 
     return 0;
 }
