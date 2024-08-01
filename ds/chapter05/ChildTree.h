@@ -11,6 +11,7 @@
 //      也可以用于表示森林, 但是需要改造,
 //          即要保存多个根节点的位置rootIdx1, rootIdx2...
 //              但是数组及数组长度可以沿用
+// 用途: 适用于找孩子节点的业务, 如服务流程树 - 电话语言提示流程
 
 #define ChildTreeMaxSize 10
 typedef int ElementType;
