@@ -5,12 +5,12 @@
 #ifndef CS_WANGDAO_MGRAPH_H
 #define CS_WANGDAO_MGRAPH_H
 
-// 图的存储 - 邻接矩阵法
+// 图的存储 - 邻接矩阵法 Adjacency matrices
 
-#define MaxVertexNum 100 // 顶点数目的最大值
+#define MaxVertexNum 10 // 顶点数目的最大值
 typedef struct {
-    char Vertex[MaxVertexNum]; // 顶点表
-    int Edge[MaxVertexNum][MaxVertexNum]; // 邻接矩阵, 边表
+    char vertex[MaxVertexNum]; // 顶点表
+    int edge[MaxVertexNum][MaxVertexNum]; // 邻接矩阵, 边表
     int vertexNum; // 图的当前顶点数
     int arcNum; // 图的当前边数/弧数
 } MGraph;
@@ -20,8 +20,8 @@ typedef struct {
 typedef char VertexType; // 顶点的数据类型
 typedef int EdgeType; // 带权图中边上的权值的数据类型
 typedef struct {
-    VertexType Vertex[MaxVertexNum]; // 顶点
-    EdgeType Edge[MaxVertexNum][MaxVertexNum]; // 边的权值
+    VertexType vertex[MaxVertexNum]; // 顶点
+    EdgeType edge[MaxVertexNum][MaxVertexNum]; // 边的权值
     int vertexNum; // 图中的当前顶点数
     int arcNum; // 图中的当前弧数
 } MGraph2;
