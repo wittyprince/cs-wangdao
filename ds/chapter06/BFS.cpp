@@ -142,8 +142,9 @@ int main() {
 
     ALGraph G;
 
-//    VexNode v0 = {'a'};
+    VexNode v0 = {'a'};
 //    VexNode *vp0 = v0; // 报错
+    VexNode *vp0 = &v0; // 可以使用此种方式, 使指针指向一个结构体
 
 //    VexNode* vertices[4]; //
     VexNode *v1 = (VexNode *)malloc(sizeof(VexNode));
