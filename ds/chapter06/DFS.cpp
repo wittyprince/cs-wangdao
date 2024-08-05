@@ -46,7 +46,7 @@ void DFS(ALGraph G, int v, bool visited[]) {
     VexNode *tmpVexNode = G.vertices[v];
     visitVexNode(tmpVexNode);
     visited[v] = true;
-
+    // 找当前节点v的邻接节点
     ArcNode *tmpArcNode = tmpVexNode->firstArc;
     while (tmpArcNode != NULL) {
         if (!visited[tmpArcNode->index]) {
