@@ -25,15 +25,15 @@
 typedef char VertexType;
 // 边节点
 typedef struct arcNode {
-    int index; // 当前节点在数组vertices[]的下标索引
-    struct arcNode *nextArc; // 指针域, 指向下一个节点在数组vertices[]的下标索引
+    int index; // 邻接点域, 存储与头结点顶点Vi邻接的顶点的编号, 即邻接顶点在数组vertices[]的编号或下标索引(具体含义可调整)
+    struct arcNode *nextArc; // 指针域, 指向下一个边节点
     // InfoType info; // 边的权值
 } ArcNode;
 
 // 顶点节点
 typedef struct vexNode {
-    VertexType data; // 数据域, 节点中的数据信息
-    ArcNode *firstArc;  // 指针域, 指向数组vertices[]的下标索引
+    VertexType data; // 数据域, 存储顶点中的数据信息
+    ArcNode *firstArc;  // 指针域, 指向当前结点相连的单链表的第一个边节点
 } VexNode;
 
 // 这段代码定义了一个新的数据类型 AdjList，
