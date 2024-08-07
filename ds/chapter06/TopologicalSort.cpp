@@ -62,6 +62,8 @@ void visitVexNode(VexNode *vexNode) {
 }
 
 void topologicalSort(ALGraph G, int deg[]) {
+    // 可以借助【栈】, 也可以借助 【队列】 或 【数组】
+    // 是因为入度为0的节点, 他们没有前后顺序要求
     Stack S;
     initStack(S);
     // G个顶点节点的入度数组degrees[]
@@ -77,11 +79,13 @@ void topologicalSort(ALGraph G, int deg[]) {
             pushIntoStack(S, G.vertices[i]);
         }
     }
+    int count = 0; // 统计访问的节点数
     // 处理栈中数据
     VexNode *tmpVexNode;
     while (!isStackEmpty(S)) {
         popFromStack(S, tmpVexNode);
         // 访问
+        count++;
         visitVexNode(tmpVexNode);
         // 处理, 把tmpVexNode的边表中的节点的度都减1
         ArcNode *tmpArcNode = tmpVexNode->firstArc;
@@ -95,6 +99,15 @@ void topologicalSort(ALGraph G, int deg[]) {
             }
             tmpArcNode = tmpArcNode->nextArc;
         }
+    }
+
+    printf("\n=====\n");
+
+    if (count == G.vexNum) {
+        printf("success");
+    } else {
+        // 排序失败, 有向图中有回路
+        printf("fail");
     }
 }
 
