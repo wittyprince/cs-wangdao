@@ -118,13 +118,20 @@ bool BST_Insert(BST &T, ElementType e) {
         return true;
     }
     if (T->data == e) {
-        printf("the value [%3d] has been already existed!", e);
+        //TODO 如果相等, 具体的处理策略带确定
+        printf("the value [%3d] has been already existed!\n", e);
         return false;
     }
     if (T->data > e) {
         return BST_Insert(T->left, e);
     } else {
         return BST_Insert(T->right, e);
+    }
+}
+
+void createBST(BST &tree, int a[], int n) {
+    for (int i = 0; i < n; ++i) {
+        BST_Insert(tree, a[i]);
     }
 }
 
@@ -173,6 +180,12 @@ int main() {
     BST_Insert(root, 4);
     BST_Insert(root, 3);
     inOrder(n6);
+
+    printf("\n===\n");
+    BST r1 = NULL;
+    int a[] = {45, 24, 53, 45, 12, 24};
+    createBST(r1, a, 5);
+    inOrder(r1);
 
     return 0;
 }
