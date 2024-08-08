@@ -34,7 +34,7 @@ void DFS2(MGraph G, int v, bool visited[]) {
     visitVexNode(tmpVertex);
     visited[v] = true;
     // 找当前节点v的邻接节点
-    //    即为v节点的同行或同列中不为边权值不为1的元素节点
+    //    即为v节点的同行或同列中边权值为1的元素节点
     for (int j = 0; j < G.vexNum; ++j) {
         int edgeWight = G.edges[v][j];
         char tmpV = G.vertices[j];
