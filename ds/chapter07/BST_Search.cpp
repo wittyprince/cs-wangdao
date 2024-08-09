@@ -135,6 +135,32 @@ void createBST(BST &tree, int a[], int n) {
     }
 }
 
+BSTNode *getFirstNode(BSTNode *currentNode) {
+    while (currentNode != NULL) {
+        currentNode = currentNode->left;
+    }
+    return currentNode;
+}
+
+void deleteFromBST(BST &tree, ElementType e) {
+
+    BSTNode *toDeletedNode = BST_Search(tree, e);
+    // 1. 未找到e对应的节点
+    if (toDeletedNode == NULL) {
+        return;
+    }
+    // 2. 找到了, 左右子树都为空, 是叶子节点
+    if (toDeletedNode->left == NULL && toDeletedNode->right == NULL) {
+        //TODO 这里需要parent节点
+    }
+    // 3. 找到了, 有左子树
+    // 4. 找到了, 有右子树
+
+    // 5. 找到了, 有左右子树
+
+
+}
+
 int main() {
 
     BSTNode *n1 = (BSTNode *) calloc(1, sizeof (BSTNode));
