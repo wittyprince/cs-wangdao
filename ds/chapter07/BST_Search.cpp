@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// 二叉查找树/二叉排序树
+
 typedef int ElementType;
 
 typedef struct bstNode {
