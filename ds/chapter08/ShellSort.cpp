@@ -15,12 +15,15 @@ void printArray(int a[], int length) {
 }
 
 void shellSort(int a[], int length) {
-    int step = length / 2;
     int k;
     int i, j, tmp, idx;
-    while (step > 0) {
+    // 处理步长
+    for (int step =  length / 2; step >= 1; step = step / 2) {
+        // 循环遍历处理在一个步长内的数据
         for (k = 0; k < step; k++) {
-            //TODO 循环结束条件 i < k + step - 1
+            // 处理相邻距离为步长的其他数据--即当成一个特殊的序列
+            // 以下为直接插入排序代码
+            // 循环结束条件 i < k + step - 1 ?
             for (i = k; i < length; i = i + step) {
                 idx = i + 1 * step;
                 if (idx < length) {
@@ -36,7 +39,6 @@ void shellSort(int a[], int length) {
             }
 //            printArray(a, length);
         }
-        step = step / 2;
     }
 }
 
