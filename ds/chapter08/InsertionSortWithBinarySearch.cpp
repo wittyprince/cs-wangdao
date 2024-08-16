@@ -47,10 +47,10 @@ void insertionSortWithBinarySearch(int a[], int length) {
         int low = 0, high = i - 1;
         while (low <= high) {
             int mid = (low + high) / 2;
-            if (a[mid] == tmp) {
+            /*if (a[mid] == tmp) { // 这里为了保证查找的稳定性, 对于 a[mid] == tmp的情况不做处理, 继续进行查找, 找到从后往前第一个大于tmp的元素的下标low
                 idx = mid + 1;
                 break;
-            } else if (a[mid] > tmp) {
+            } else */if (a[mid] > tmp) {
                 high = mid - 1;
             } else {
                 low = mid + 1;
