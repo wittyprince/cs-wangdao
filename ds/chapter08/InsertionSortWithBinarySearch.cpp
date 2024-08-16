@@ -56,7 +56,11 @@ void insertionSortWithBinarySearch(int a[], int length) {
                 low = mid + 1;
             }
         }
+        // 待插入的位置为：
+        //  1. 找到mid时, 为 mid + 1
+        //  2. 找不到mid时, 为 low 或者 high + 1
         idx = idx == i ? low : idx;
+//        idx = idx == i ? high + 1 : idx;
         // 移动元素
         for (int k = i; k > idx; --k) {
             a[k] = a[k - 1];
