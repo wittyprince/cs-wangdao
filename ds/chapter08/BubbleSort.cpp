@@ -26,10 +26,16 @@ void swap(int &a, int &b) {
  */
 void bubbleSort(int a[], int length) {
     for (int i = 0; i < length; ++i) {
+        // 优化-如果第i轮遍历没有任何数据交换, 那么i~n之后的轮次均无需再比较
+        bool alreadySorted = true;
         for (int j = length - 1; j > i; --j) {
             if (a[j] < a[j - 1]) {
                 swap(a[j], a[j - 1]);
+                alreadySorted = false;
             }
+        }
+        if (alreadySorted) {
+            return;
         }
     }
 }
