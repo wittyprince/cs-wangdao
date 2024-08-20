@@ -22,19 +22,19 @@ void printArray(int a[], int length) {
 void insertionSort(int a[], int length) {
     int i, j, tmp, idx;
     for (i = 0; i < length - 1; ++i) {
-        idx = i + 1;
-        tmp = a[idx];
+        idx = i + 1; // 待插入元素的索引下标
+        tmp = a[idx]; // 待插入的元素
         for (j = i; j >= 0; j--) { // 遍历找到索引为i+1的元素需要插入的位置
-            if (tmp < a[j]) {
-                a[j + 1] = a[j];
-                idx = j;
+            if (tmp < a[j]) { // 如果tmp < a[j], 说明tmp要插入的位置在a[j]之前
+                a[j + 1] = a[j]; // 移动元素
+                idx = j; // 更新待插入的位置索引
             }
             // 如果使用下面的break, 可以减少比较次数
-//            else {
-//                break;
-//            }
+            else {
+                break;
+            }
         }
-        a[idx] = tmp;
+        a[idx] = tmp; // 把tmp插入到数组a中
     }
 }
 
