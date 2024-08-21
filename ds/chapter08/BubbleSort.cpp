@@ -42,11 +42,13 @@ void bubbleSort(int a[], int length) {
 
 int main() {
     int length = 9;
-    int a[9] = {3, 6, 7, 9, 2, 1, 10, 8, 0};
-    srand(time(NULL));
-    for (int i = 0; i < length; ++i) {
-        a[i] = rand() % 100;
-    }
+//    int a[9] = {3, 6, 7, 9, 2, 1, 10, 8, 0};
+    // 有序表, 最好时间复杂度为O(n)
+    int a[9] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+//    srand(time(NULL));
+//    for (int i = 0; i < length; ++i) {
+//        a[i] = rand() % 100;
+//    }
     printArray(a, length);
     bubbleSort(a, length);
     printArray(a, length);
