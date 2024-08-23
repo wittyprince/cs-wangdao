@@ -35,7 +35,7 @@ void merge(int a[], int low, int mid, int high) {
 
     int i, j, idx = low;
     for (i = low, j = mid+1; i <= mid && j <= high; ) {
-        if (b[i] < b[j]) {
+        if (b[i] <= b[j]) { // 这里增加=, 是为了保持 排序的稳定性, 因为在原数组中i在j之前
             a[idx] = b[i];
             i++;
             idx++;
